@@ -1,17 +1,17 @@
-sys.platform = "windows"
+sys.platform = "unix"
 
 function cls()
-	os.execute("cls")
+	os.execute("clear")
 end
 
 function readfile(name)
-	local f = io.open("RposData\\"..name,"r")
+	local f = io.open("RposData/"..name,"r")
 	if not f then return end
 	return f:read("*a")
 end
 
 function writefile(name,value)
-	local f = io.open("RposData\\"..name,"w")
+	local f = io.open("RposData/"..name,"w")
 	if not f then return false end
 	f:write(value)
 	return true
@@ -24,4 +24,3 @@ end
 function readchar()
 	return io.read(1)
 end
-

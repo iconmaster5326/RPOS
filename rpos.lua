@@ -1,6 +1,6 @@
 -------------------------------------------------------
 --
---	RPOS v2.3.0
+--	RPOS v2.3.1
 --	Made By Joshua Robbins
 --	The Reverse Polish Operating System
 --	Made on 2/17/11, Last modified on 9/14/13
@@ -30,7 +30,7 @@ sys["errs"] = 1
 sys["disp"] = 0
 sys["srcchr"] = "_"
 sys["repchr"] = " "
-sys["version"] = "2.3.0"
+sys["version"] = "2.3.1"
 sys["bdate"] = "9/14/13"
 sys["joinchr"] = ""
 sys["inc"] = 1
@@ -42,6 +42,7 @@ sys["pshloop"] = 1
 sys["term"] = 0
 sys["libs"] = libs
 sys["platform"] = "unknown"
+sys["termchr"] = string.char(4)
 
 -----------------
 -- RPOS Functions
@@ -339,7 +340,7 @@ funcs["write"] = function()
 	tot = ""
 	while true do
 		v = readchar()
-		if string.byte(v)==4 then break end
+		if v==sys["termchr"] then break end
 		tot = tot .. v
 	end
 	push(string.sub(tot,1,-2))
@@ -659,8 +660,8 @@ pref["}"] = function(arg)
 	local v,tot
 	tot = ""
 	while true do
-		v = io.read(1)
-		if string.byte(v)==4 then break end
+		v = readchar()
+		if v==sys["termchr"] then break end
 		tot = tot .. v
 	end
 	vars[arg] = string.sub(tot,1,-2)
@@ -875,12 +876,12 @@ end
 
 -- Reads a line from the console.
 function readline()
-	io.read("*l")
+	return io.read("*l")
 end
 
 -- Reads one charatcer form the console.
 function readchar()
-	io.read(1)
+	return io.read(1)
 end
 
 ------------

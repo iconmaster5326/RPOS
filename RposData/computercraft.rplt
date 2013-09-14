@@ -1,0 +1,39 @@
+sys.platform = "computercraft"
+sys.termchr = "~"
+
+function cls()
+	term.clear()
+end
+
+function readfile(name)
+	local f = fs.open("RposData/"..name)
+	if not f then return end
+	return f.readAll()
+end
+
+function writefile(name,value)
+	local f = fs.open("RposData/"..name,"w")
+	if not f then return false end
+	f.write(value)
+	return true
+end
+
+function readline()
+	return io.read("*l")
+end
+
+function readchar()
+	local event,key = os.pullEvent("key")
+	return key
+end
+
+function err(msg)
+	if sys["errs"] == 0 then return end
+	--local oldc = term.getTextColor()
+	term.setTextColor(colors.red)
+	print("ERROR: "..msg)
+	--term.setTextColor(oldc)
+	term.setTextColor(colors.white)
+	sys["errmsg"] = msg
+	if sys["term"] == 1 then error("RPOS: termination mode enabled") end
+end

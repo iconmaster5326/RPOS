@@ -11,17 +11,17 @@ function readfile(name)
 end
 
 function writefile(name,value)
-	local f = io.open(name,"w")
+	local f = io.open("RposData\\"..name,"w")
 	if not f then return false end
 	f:write(value)
 	return true
 end
 
 function readline()
-	io.read("*l")
+	return io.read("*l")
 end
 
 function readchar()
-	io.read(1)
+	return io.read(1)
 end
 
