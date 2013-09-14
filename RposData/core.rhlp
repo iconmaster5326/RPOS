@@ -1,0 +1,98 @@
+<add>NAME:	add LIB:	core USAGE:	num1 num2 add DESC:	Adds num1 and num2, and pushes the result onto the stack. NOTES:	num1 and num2 have to be numbers.
+<sub>NAME:	sub LIB:	core USAGE:	num1 num2 sub DESC:	Subtracts num1 and num2, and pushes the result onto the stack. NOTES:	num1 and num2 have to be numbers.
+<mul>NAME:	mul LIB:	core USAGE:	num1 num2 mul DESC:	Multiplies num1 and num2, and pushes the result onto the stack. NOTES:	num1 and num2 have to be numbers.
+<div>NAME:	div LIB:	core USAGE:	num1 num2 div DESC:	Divides num1 and num2, and pushes the result onto the stack. NOTES:	Num1 and num2 have to be numbers. Num2 cannot be zero.
+<disp>NAME:	disp LIB:	core USAGE:	item disp DESC:	Takes the top item off of the stack and displays it.
+<peek>NAME:	peek LIB:	core USAGE:	item peek DESC:	Like disp, but it does not pop the top element.
+<dup>NAME:	dup LIB:	core USAGE:	item dup DESC:	Takes the top item off of the stack and pushes 2 copies of it.
+<drop>NAME:	drop LIB:	core USAGE:	item drop DESC:	Takes the top item off the stack.
+<swap>NAME:	swap LIB:	core USAGE:	it1 it2 swap DESC:	Swaps the top 2 items on the stack, so that 1 2 -} 2 1 .
+<rot>NAME:	rot LIB:	core USAGE:	i1 i2 i3 rot DESC:	Takes the 3 top items on the stack and pushes them on in reverse order, so that 1 2 3 -} 3 2 1 .
+<clear>NAME:	clear LIB:	core USAGE:	clear DESC:	Empies the entire stack.
+<cls>NAME:	cls LIB:	core USAGE:	cls DESC:	Clears the screen.
+<dump>NAME:	dump LIB:	core USAGE:	dump DESC:	Displays the contents of the stack.
+<mkdir>NAME:	mkdir LIB:	core USAGE:	name mkdir DESC:	Creates a new directory called name. NOTES:	Name must be a string. SAMEAS:	prefix :
+<chdir>NAME:	chdir LIB:	core USAGE:	name chdir DESC:	Changes the current directory called name. NOTES:	Name must be a string and either be a valid directory name or '..' . SAMEAS:	prefix rb
+<isdir>NAME:	isdir LIB:	core USAGE:	name isdir DESC:	Pushes 1 if name is a directory, 0 otherwise. NOTES:	Name must be a string.
+<del>NAME:	del LIB:	core USAGE:	name del DESC:	Deltes the item at name. SAMEAS:	prefix ~
+<sto>NAME:	sto LIB:	core USAGE:	val name sto DESC:	Stores val in the variable called name. NOTES:	Name must be a string. SAMEAS:	prefix =
+<rcl>NAME:	rcl LIB:	core USAGE:	name rcl DESC:	Recalls the varible in name to the stack. NOTES:	Name must be a string and cannot be a directory name. SAMEAS:	prefix $
+<list>NAME:	list LIB:	core USAGE:	list DESC:	Displays all the items in the current directory. SAMEAS:	prefix @
+<dir>NAME:	dir LIB:	core USAGE:	dir DESC:	Displays the current path.
+<exec>NAME:	exec LIB:	core USAGE:	code exec DESC:	Executes code as RPOS batch. NOTES:	Code must be a string.
+<eq>NAME:	eq LIB:	core USAGE:	i1 i2 eq DESC:	Pushes 1 if i1 and i2 are equal, 0 otherwise.
+<ne>NAME:	ne LIB:	core USAGE:	i1 i2 ne DESC:	Pushes 1 if i1 and i2 are not equal, 0 otherwise.
+<lt>NAME:	lt LIB:	core USAGE:	i1 i2 lt DESC:	Pushes 1 if i1 is less than i2, 0 otherwise.
+<le>NAME:	le LIB:	core USAGE:	i1 i2 le DESC:	Pushes 1 if i1 is less than or equal to i2, 0 otherwise.
+<gt>NAME:	gt LIB:	core USAGE:	i1 i2 gt DESC:	Pushes 1 if i1 is greater than i2, 0 otherwise.
+<ge>NAME:	ge LIB:	core USAGE:	i1 i2 ge DESC:	Pushes 1 if i1 is grater than or equal to i2, 0 otherwise.
+<not>NAME:	not LIB:	core USAGE:	bool not DESC:	Pushes 0 if bool is 1, 0 otherwise.
+<and>NAME:	and LIB:	core USAGE:	b1 b2 and DESC:	Pushes 1 if b1 and b2 are 1, 0 otherwise.
+<or>NAME:	or LIB:	core USAGE:	b1 b2 or DESC:	Pushes 1 if b1 or b2 is 1, 0 otherwise.
+<doif>NAME:	doif LIB:	core USAGE:	bool code doif DESC:	Executes code if bool is 1. NOTES:	Code must be a string. SAMEAS:	prefix ?
+<while>NAME:	while LIB:	core USAGE:	cond code while DESC:	Keeps executing code while the code in cond evaluates to 1. NOTES:	Cond and code bust be strings.
+<rep>NAME:	rep LIB:	core USAGE:	num code rep DESC:	Executes code num times and pushes the current iteration on the stack. NOTES:	Num must be a number, and code must be a string.
+<repdir>NAME:	repdir LIB:	core USAGE:	name code repdir DESC:	For every item in the directory called name, pushes the item's name and executes code. NOTES:	Name and code must be strings. Name must be a valid directory name, '.', or '..' .
+<size>NAME:	size LIB:	core USAGE:	name size DESC:	Pushes the number of items in the directory called name. NOTES:	name must be a valid directory name, '.', or '..' . SAMEAS:	prefix #
+<join>NAME:	join LIB:	core USAGE:	s1 s2 join DESC:	Joins s1 and s2 together, and pushes it on the stack.
+<move>NAME:	move LIB:	core USAGE:	old new move DESC:	Moves the directory called old into the directory called new. NOTES:	old must be strings and must be a valid directory name. New may also be '..' .
+<copy>NAME:	copy LIB:	core USAGE:	old new copy DESC:	Copies the directory called old into the directory called new. NOTES:	old must be strings and must be a valid directory name. New may also be '..' .
+<lib>NAME:	lib LIB:	core USAGE:	name lib DESC:	Imports the library called name. NOTES:	Name must be a string and a valid library name. Libraries are in the enclosing filesystem and have the .rlib prefix. Libraries are written in Lua. SAMEAS:	prefix *
+<libcmd>NAME:	libcmd LIB:	core USAGE:	list name libcmd DESC:	Imports the commands in list from library called name. NOTES:	Name must be a string and a valid library name. Libraries are in the enclosing filesystem and have the .rlib prefix. Libraries are written in Lua. List must be a space-seperated string.
+<func>NAME:	func LIB:	core USAGE:	code name func DESC:	Creates a user-defined command called name. When name is refrenced as a command later, code will be executed. NOTES:	Code and name must be strings.
+<isvar>NAME:	isvar LIB:	core USAGE:	name isvar DESC:	Pushes 1 if name is a valid item, 0 otherwise. NOTES:	Name must be a string.
+<isfunc>NAME:	isfunc LIB:	core USAGE:	name isfunc DESC:	Pushes 1 if name is a valid command, 0 otherwise. NOTES:	Name must be a string.
+<delfunc>NAME:	delfunc LIB:	core USAGE:	name delfunc DESC:	Deletes the command called name. WARNING!!! This may cause grat damage to the system. Use this command wisely. NOTES:	Name must be a string.
+<type>NAME:	type LIB:	core USAGE:	item type DESC:	Pushes 'number' if item is a number, 0 otherwise.
+<substr>NAME:	substr LIB:	core USAGE:	str start end substr DESC:	Gets the substring of str, starting at start and ending and end. NOTES:	start and end must be numbers. Str must be a string.
+<inp>NAME:	inp LIB:	core USAGE:	inp DESC:	Gets a line of input and pushes it to the stack.
+<write>NAME:	write LIB:	core USAGE:	write DESC:	Gets input until CTRL+D is pressed on a newline, and then pushes it. SAMEAS:	prefix }
+<root>NAME:	root LIB:	core USAGE:	root DESC:	Sets the current directory to root.
+<import>NAME:	import LIB:	core USAGE:	name import DESC:	Pushes the contents of outside file called name. NOTES:	Files are in the outside filesystem and have the .rfil extenstion.
+<export>NAME:	export LIB:	core USAGE:	val name export DESC:	Set the contents of outside file called name to val. NOTES:	Files are in the outside filesystem and have the .rfil extenstion.
+<save>NAME:	save LIB:	core USAGE:	save DESC:	Saves the system state to an outside file. NOTES:	System Saves are in the outside filesystem and have the .rsav extenstion.
+<load>NAME:	load LIB:	core USAGE:	load DESC:	Loads the system state from an outside file. NOTES:	System Saves are in the outside filesystem and have the .rsav extenstion.
+<call>NAME:	call LIB:	core USAGE:	name call DESC:	Executes the outside file called name in RPOS batch. NOTES:	name must be a string. Files are in the outside filesystem and have the .rfil extenstion. SAMEAS:	prefix %
+<run>NAME:	run LIB:	core USAGE:	name run DESC:	Executes the outside file called name as Lua code. NOTES:	name must be a string. Files are in the outside filesystem and have the .rfil extenstion.
+<ren>NAME:	ren LIB:	core USAGE:	name newname ren DESC:	Renames the item called name to newname. NOTES:	Name and newname must be strings. Name must be a valid item name.
+<prompt>NAME:	prompt LIB:	core USAGE:	opt prompt DESC:	Configures the prompt based on opt. If opt is, it shows: 'S' - the size of the stack. 'T' - the top item on the stack. 'D' - The current path. 'C' - The current directorie's name.
+<help>NAME:	help LIB:	core USAGE:	help DESC:	Enters RPOS Interactive Help.
+<info>NAME:	info LIB:	core USAGE:	info DESC:	Displays the RPOS version information.
+<alias>NAME:	alias LIB:	core USAGE:	old new alias DESC:	Aliases the command called old as new. NOTES:	Old and new must be strings.
+<pshdir>NAME:	pshdir LIB:	core USAGE:	pshdir DESC:	Pushes the current path on to the stack.
+<popdir>NAME:	popdir LIB:	core USAGE:	dr popdir DESC:	Sets the current path to dr. NOTES:	dr has to be a string.
+<len>NAME:	len LIB:	core USAGE:	str len DESC:	Returns the lenght of str. NOTES:	str has to be a string.
+<tos>NAME:	tos LIB:	core USAGE:	itm tos DESC:	Converts itm to a string.
+<ton>NAME:	ton LIB:	core USAGE:	itm ton DESC:	Converts itm to a number.
+<'>PREFIX:	' DESC:	Builds a string. The characters after ' are pushed as a string.
+<">PREFIX:	" DESC:	Builds a string. The characters after " are pushed as a string after replacing the occourenses of the sysvar srcchr with the sysvar repchr.
+<$>PREFIX:	$ DESC:	Recalls the referenced variable. NOTES:	the referenced name must be a valid variable name.
+<=>PREFIX:	= DESC:	Pops a value off the stack ands sets the referenced variable to it.
+<:>PREFIX:	: DESC:	Creates the referenced name as a directory.
+<rb>PREFIX:	Right Brakcet DESC:	Changes the current directory to the referenced directory. NOTES:	The characters after must be a valid directory.
+<~>PREFIX:	~ DESC:	Deletes the referenced item.
+<?>PREFIX:	? DESC:	Does the referenced command if the top value on the stack is 1.
+<@>PREFIX:	@ DESC:	Displays the items in the referenced directory. NOTES:	the referenced name must be a valid directory.
+<#>PREFIX:	# DESC:	Displays the number of items in the referenced directory. NOTES:	the referenced name must be a valid directory.
+<&>PREFIX:	& DESC:	Displays the contents of the refrenced item.
+<%>PREFIX:	% DESC:	Calls the outside file refernced as RPOS batch code. NOTES:	Files are in the enclosing filesystem and have the .rfil prefix.
+<*>PREFIX:	* DESC:	Imports the library refernced. NOTES:	Libraries are in the enclosing filesystem and have the .rlib prefix. Libraries are written in Lua.
+<}>PREFIX:	} DESC:	Puts what you input until CTRL+D into the refernced variable.
+<+>PREFIX:	+ DESC:	Adds to the refernced variable the sysvar inc. NOTES:	the referenced name must be a number variable.
+<->PREFIX:	- DESC:	Subtracts to the refernced variable the sysvar inc. NOTES:	the referenced name must be a number variable.
+<errs>NAME:	errs TYPE:	number DFALUT:	1 DESC:	Set errs to 1 to display error messages, 0 otherwise.
+<disp>NAME:	disp TYPE:	number DFALUT:	0 DESC:	Set disp to 1 to display pushed items, 0 otherwise.
+<srcchr>NAME:	srcchr TYPE:	string DFALUT:	_ DESC:	Used in the prefix " as the character to replace.
+<repchr>NAME:	repchr TYPE:	string DFALUT:	 DESC:	Used in the prefix " as the character to replace with.
+<version>NAME:	version TYPE:	number DFALUT:	-varies- DESC:	The current version number.
+<bdate>NAME:	bdate TYPE:	string DFALUT:	-varies- DESC:	The current build date.
+<joinchr>NAME:	joinchr TYPE:	string DFALUT:	 DESC:	What to put in between the two arguments of the join command.
+<inc>NAME:	inc TYPE:	number DFALUT:	1 DESC:	What to increment and decrement variables by in the + and - prefixes.
+<pcf1>NAME:	pcf1 TYPE:	string DFALUT:	 DESC:	What to display before pcf2 in the prompt.
+<pcf2>NAME:	pcf2 TYPE:	string DFALUT:	S DESC:	what the prompt displays. Don't set this sysvar directly, use the prompt command.
+<pcf3>NAME:	pcf3 TYPE:	string DFALUT:	rb DESC:	What to display after pcf2 in the prompt.
+<errmsg>NAME:	errmsg TYPE:	string DFALUT:	 DESC:	The message of the last error that occoured.
+<pshloop>NAME:	pshloop TYPE:	number DFALUT:	1 DESC:	Set to 1 to push the counter in the commands rep and repdir, 0 otherwise.
+<term>NAME:	term TYPE:	number DFALUT:	0 DESC:	Set to 1 to terminate on errors, 0 otherwise.
+<libs>NAME:	libs TYPE:	directory DFALUT:	-dir- DESC:	Contains the names of the commands from all the imported libraries.
+<platform>NAME:	platform TYPE:	string DFALUT:	-varies- DESC:	The platform of the RPOS shell currently running.
