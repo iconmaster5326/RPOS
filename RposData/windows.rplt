@@ -1,0 +1,27 @@
+sys.platform = "windows"
+
+function cls()
+	os.execute("cls")
+end
+
+function readfile(name)
+	local f = io.open("RposData\\"..name,"r")
+	if not f then return end
+	return f:read("*a")
+end
+
+function writefile(name,value)
+	local f = io.open(name,"w")
+	if not f then return false end
+	f:write(value)
+	return true
+end
+
+function readline()
+	io.read("*l")
+end
+
+function readchar()
+	io.read(1)
+end
+

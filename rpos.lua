@@ -1,9 +1,9 @@
 -------------------------------------------------------
 --
---	RPOS v2.2
+--	RPOS v2.3.0
 --	Made By Joshua Robbins
 --	The Reverse Polish Operating System
---	Made on 2/17/11, Last modified on 3/20/11
+--	Made on 2/17/11, Last modified on 9/14/13
 --
 -------------------------------------------------------
 
@@ -22,14 +22,16 @@ help = {}
 libfrom = {}
 libs = {}
 
---sys vars declaration
+----------
+--sys vars
+----------
 
 sys["errs"] = 1
 sys["disp"] = 0
 sys["srcchr"] = "_"
 sys["repchr"] = " "
-sys["version"] = 2.2
-sys["bdate"] = "3/20/11"
+sys["version"] = "2.3.0"
+sys["bdate"] = "9/14/13"
 sys["joinchr"] = ""
 sys["inc"] = 1
 sys["pcf1"] = ""
@@ -39,10 +41,11 @@ sys["errmsg"] = ""
 sys["pshloop"] = 1
 sys["term"] = 0
 sys["libs"] = libs
-sys["platform"] = "lua"
+sys["platform"] = "unknown"
 
-
--- Function declaration
+-----------------
+-- RPOS Functions
+-----------------
 
 funcs["add"] = function()
 	local args = {}
@@ -108,7 +111,7 @@ funcs["clear"] = function()
 end
 
 funcs["cls"] = function()
-	os.execute("cls")
+	cls()
 end
 
 funcs["dump"] = function()
@@ -335,7 +338,7 @@ funcs["write"] = function()
 	local v,tot
 	tot = ""
 	while true do
-		v = io.read(1)
+		v = readchar()
 		if string.byte(v)==4 then break end
 		tot = tot .. v
 	end
@@ -424,8 +427,8 @@ funcs["lib"] = function()
 	local f,cont,i,v,s
 	if GetArgs(args,1,"string") then return end
 	args = args[1]
-	f = io.open("RposData\\"..args..".rlib","r")
-	cont = f:read("*a")
+	cont = readfile(""..args..".rlib")
+	if not cont then err("file "..args[1].." not found") return end
 	lib = {}
 	if not libs[args] then libs[args] = {} end
 	s = loadstring(cont)
@@ -442,8 +445,8 @@ funcs["libcmd"] = function()
 	local args = {}
 	local f,cont,i,v,s
 	if GetArgs(args,2,"string","string") then return end
-	f = io.open("RposData\\"..args[1]..".rlib","r")
-	cont = f:read("*a")
+	cont = readfile(""..args[1]..".rlib")
+	if not cont then err("file "..args[1].." not found") return end
 	lib = {}
 	if not libs[args[1]] then libs[args[1]] = {} end
 	s = loadstring(cont)
@@ -473,8 +476,8 @@ funcs["import"] = function()
 	local args = {}
 	local f,cont,i,v,s
 	if GetArgs(args,1,"string") then return end
-	f = io.open("RposData\\"..args[1]..".rfil","r")
-	cont = f:read("*a")
+	cont = readfile(""..args[1]..".rfil")
+	if not cont then err("file "..args[1].." not found") return end
 	push(cont)
 end
 
@@ -482,20 +485,20 @@ funcs["export"] = function()
 	local args = {}
 	local f,cont,i,v,s
 	if GetArgs(args,2,"string") then return end
-	f = io.open("RposData\\"..args[1]..".rfil","w")
-	f:write(args[2])
+	writefile(""..args[1]..".rfil",args[2])
 end
 
 funcs["inp"] = function()
-	push(io.read("*l"))
+	push(readline())
 end
 
 funcs["call"] = function()
 	local args = {}
 	local f,cont,i,v,s
 	if GetArgs(args,1,"string") then return end
-	f = io.open("RposData\\"..args[1]..".rfil","r")
-	cont = f:read("*a")
+	f = io.open(""..args[1]..".rfil","r")
+	cont = f:read("*a")	cont = readfile(""..args[1]..".rfil")
+	if not cont then err("file "..args[1].." not found") return end
 	parse(cont)
 end
 
@@ -503,21 +506,19 @@ funcs["run"] = function()
 	local args = {}
 	local f,cont,i,v,s
 	if GetArgs(args,1,"string") then return end
-	f = io.open("RposData\\"..args[1]..".rfil","r")
-	cont = f:read("*a")
+	cont = readfile(""..args[1]..".rfil")
+	if not cont then err("file "..args[1].." not found") return end
 	s = loadstring(cont)
 	if s then s() else err("Syntax error in file "..args[1]) return end
 end
 
 funcs["save"] = function()
-	local f
 	sav = "return "..save(root)
-	f = io.open("RposData\\saved.rsav","w")
-	f:write(sav)
+	if not writefile("saved.rsav",sav) then err("Saving failed") end
 end
 
 funcs["load"] = function()
-	sav = loadfile("RposData\\saved.rsav")
+	sav = loadstring(readfile(("saved.rsav")))
 	if sav == nil then err("Corrupted or nonexistant save file") return end
 	root = sav()
 	sys = root.sys
@@ -529,7 +530,8 @@ funcs["load"] = function()
 end
 
 funcs["exit"] = function()
-	if io.open("RposData\\onexit.rfil","r") then parse(io.open("RposData\\onexit.rfil","r"):read("*a")) end
+	local cont = readfile("onexit.rfil")
+	if cont then parse(cont) end
 	os.exit()
 end
 
@@ -537,6 +539,7 @@ funcs["info"] = function()
 	print("RPOS v"..sys["version"])
 	print("Made by Joshua Robbins")
 	print("Current Build: "..sys["bdate"])
+	print("Running on "..sys["platform"].." platform")
 	print("")
 end
 
@@ -566,11 +569,11 @@ funcs["help"] = function()
 	local inp
 	print([[
 Welcome to RPOS Interactive Help!
-Tpye the name of a command or a help topic to see it's help file, or type 'exit' to quit.
+Type the name of a command or a help topic to see its help file, or type 'exit' to quit.
 ]])
 	while true do
 		io.write(">> ")
-		inp = io.read("*l")
+		inp = readline()
 		if inp == "exit" then break end
 		if help[inp] then print(help[inp]) else print("There is no help file for "..inp..".") end
 	end
@@ -665,8 +668,8 @@ end
 
 pref["*"] = function(args)
 	local f,cont,i,v,s
-	f = io.open("RposData\\"..args..".rlib","r")
-	cont = f:read("*a")
+	cont = readfile(""..args..".rlib")
+	if not cont then err("File "..args.." not found") return end
 	lib = {}
 	if not libs[args] then libs[args] = {} end
 	s = loadstring(cont)
@@ -680,8 +683,8 @@ end
 
 pref["%"] = function(arg)
 	local f,cont,i,v,s
-	f = io.open("RposData\\"..arg..".rfil","r")
-	cont = f:read("*a")
+	cont = readfile(""..arg..".rfil")
+	if not cont then err("File "..arg.." not found") return end
 	parse(cont)
 end
 
@@ -696,7 +699,6 @@ pref["-"] = function(arg)
 end
 
 -- Add all funcs to 'core' lib and add help file
-
 libs["core"] = {}
 libs["custom"] = {}
 for i,v in pairs(funcs) do
@@ -704,7 +706,9 @@ for i,v in pairs(funcs) do
 	libfrom[i] = "core"
 end
 
--- Helper functions declaration
+-------------------
+-- Helper functions
+-------------------
 
 function GetArgs(t,n,...)
 	if CheckStack(n) then return true end
@@ -760,7 +764,7 @@ function err(msg)
 	if sys["errs"] == 0 then return end
 	print("ERROR: "..msg)
 	sys["errmsg"] = msg
-	if sys["term"] == 1 then error("RPOS: term enabled.") end
+	if sys["term"] == 1 then error("RPOS: termination mode enabled") end
 end
 
 function prompt()
@@ -841,15 +845,47 @@ end
 
 function addhelp(filename)
 	local f,c,n,v
-	f = io.open("RposData\\"..filename..".rhlp")
-	if not f then return end
-	c = f:read("*a")
+	c = readfile(""..filename..".rhlp")
+	if not c then return end
 	for n,v in string.gmatch(c,"<([^<>]*)>([^<>]*)<") do
 		help[n]=v
 	end
 end
 
+--Clears the screen.
+function cls()
+	--os.execute("cls")
+	err("Screen clearing not supported by the platform")
+end
+
+--Reads the entire contents of a file, and returns the contents (or nil if there was no file).
+function readfile(name)
+	local f = io.open(name,"r")
+	if not f then return end
+	return f:read("*a")
+end
+
+-- Sets the contents of a file to the given value, and returns true if it succeeded.
+function writefile(name,value)
+	local f = io.open(name,"w")
+	if not f then return false end
+	f:write(value)
+	return true
+end
+
+-- Reads a line from the console.
+function readline()
+	io.read("*l")
+end
+
+-- Reads one charatcer form the console.
+function readchar()
+	io.read(1)
+end
+
+------------
 --Main logic
+------------
 
 function parse(inp)
 	local v,i,cmds
@@ -871,9 +907,10 @@ function parse(inp)
 	end
 end
 
-funcs.info()
-if io.open("RposData\\onstart.rfil","r") then parse(io.open("RposData\\onstart.rfil","r"):read("*a")) end
+(loadstring(readfile("platform.rplt")) or function() end)()
+if readfile("onstart.rfil") then parse(readfile("onstart.rfil")) end
 addhelp("core")
+funcs.info()
 
 while true do
 	io.write(prompt())

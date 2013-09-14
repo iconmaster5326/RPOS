@@ -10,4 +10,9 @@ To start using RPOS, I suggest using hte 'help' command.
 Changelog
 =========
 
+Version 2.3.0
+* Added platform files. These files, stored in RposData as .rplt files, are writen in Lua and (re)define functions for system I/O. It loads the platform called platform.rplt in the same directory as rpos.lua.
+* Made some external file system commands give erros when the file isn't found.
+* Fixed some typos.
+
 Changes before v2.2 are unkwown.
