@@ -10,12 +10,12 @@ To start using RPOS, I suggest using the 'help' command.
 Changelog
 =========
 
-Version 2.3.1
+Version 2.3.1 - 9/14/13
 * Fixed bug in writing files in the Windows platform.
 * Added platform files for ComputerCraft and Unix-based platforms.
 * Added system variable 'termchr', which represents the character which will terminate the prompt of the write command.
 
-Version 2.3.0
+Version 2.3.0 - 9/14/13
 * Added platform files. These files, stored in RposData as .rplt files, are writen in Lua and (re)define functions for system I/O. It loads the platform called platform.rplt in the same directory as rpos.lua.
 * Made some external file system commands give errors when the file isn't found.
 * Fixed some typos.
