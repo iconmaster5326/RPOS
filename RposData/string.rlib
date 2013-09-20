@@ -1,0 +1,92 @@
+-------------------------------------------------------
+--
+--	RPOS String Library
+--	Made By Joshua Robbins
+--	A string manipulation library for use in RPOS.
+--	Made on 2/18/11, Last modified on 2/18/11
+--
+-------------------------------------------------------
+
+lib["byte"]=function()
+	if CheckStack(1) or CheckTypes("string") then return end
+	push(string.byte(pop()))
+end
+
+lib["char"]=function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(string.char(pop()))
+end
+
+lib["find"]=function()
+	if CheckStack(2) or CheckTypes("string","string") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(string.find(s1,s2))
+end
+
+lib["findat"]=function()
+	if CheckStack(2) or CheckTypes("number","string","string") then return end
+	local s3 = pop()
+	local s2 = pop()
+	local s1 = pop()
+	push(string.find(s1,s2,s3))
+end
+
+lib["gsub"]=function()
+	if CheckStack(2) or CheckTypes("string","string") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(string.gsub(s1,s2))
+end
+
+
+lib["match"]=function()
+	if CheckStack(2) or CheckTypes("string","string") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(string.match(s1,s2))
+end
+
+lib["rep"]=function()
+	if CheckStack(2) or CheckTypes("number","string") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(string.rep(s1,s2))
+end
+
+lib["reverse"]=function()
+	if CheckStack(1) or CheckTypes("string") then return end
+	push(string.reverse(pop()))
+end
+
+lib["mid"]=function()
+	if CheckStack(3) or CheckTypes("number","number","string") then return end
+	local s3 = pop()
+	local s2 = pop()
+	local s1 = pop()
+	push(string.sub(s1,s2,s3))
+end
+
+lib["left"]=function()
+	if CheckStack(2) or CheckTypes("number","string") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(string.sub(s1,1,s2))
+end
+
+lib["right"]=function()
+	if CheckStack(2) or CheckTypes("number","string") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(string.sub(s1,-1,-s2))
+end
+
+lib["upper"]=function()
+	if CheckStack(1) or CheckTypes("string") then return end
+	push(string.upper(pop()))
+end
+
+lib["lower"]=function()
+	if CheckStack(1) or CheckTypes("string") then return end
+	push(string.lower(pop()))
+end

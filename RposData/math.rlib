@@ -1,0 +1,160 @@
+-------------------------------------------------------
+--
+--	RPOS Math Library
+--	Made By Joshua Robbins
+--	A mathematical library for use in RPOS.
+--	Made on 2/18/11, Last modified on 2/18/11
+--
+-------------------------------------------------------
+
+
+lib["mod"] = function()
+	local args = {}
+	if GetArgs(args,2,"number","number") then return end
+	push(args[1] % args[2])
+end
+
+lib["abs"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.abs(pop()))
+end
+
+lib["acos"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.acos(pop()))
+end
+
+lib["asin"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.asin(pop()))
+end
+
+lib["atan"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.atan(pop()))
+end
+
+lib["atan2"] = function()
+	if CheckStack(2) or CheckTypes("number","number") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(math.atan2(s1,s2))
+end
+
+lib["ceil"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.ceil(pop()))
+end
+
+lib["cos"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.cos(pop()))
+end
+
+lib["cosh"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.cosh(pop()))
+end
+
+lib["deg"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.deg(pop()))
+end
+
+lib["exp"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.exp(pop()))
+end
+
+lib["floor"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.floor(pop()))
+end
+
+lib["fmod"] = function()
+	if CheckStack(2) or CheckTypes("number","number") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(math.fmod(s1,s2))
+end
+
+lib["frexp"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.frexp(pop()))
+end
+
+lib["ldexp"] = function()
+	if CheckStack(2) or CheckTypes("number","number") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(math.ldexp(s1,s2))
+end
+
+lib["log"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.log(pop()))
+end
+
+lib["log10"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.log10(pop()))
+end
+
+lib["modf"] = function()
+	local p1,p2
+	if CheckStack(1) or CheckTypes("number") then return end
+	p1,p2 = math.modf(pop())
+	push(p1);push(p2)
+end
+
+lib["pi"] = function()
+	if CheckStack(1) then return end
+	push(math.pi)
+end
+
+lib["pow"] = function()
+	if CheckStack(2) or CheckTypes("number","number") then return end
+	local s2 = pop()
+	local s1 = pop()
+	push(s1^s2)
+end
+
+lib["rad"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.rad(pop()))
+end
+
+lib["rand"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.random(pop()))
+end
+
+lib["randseed"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.randomseed(pop()))
+end
+
+lib["sin"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.sin(pop()))
+end
+
+lib["sinh"] = function()
+	if CheckStack(1)  or CheckTypes("number") then return end
+	push(math.sinh(pop()))
+end
+
+lib["sqrt"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.sqrt(pop()))
+end
+
+lib["tan"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.tan(pop()))
+end
+
+lib["tanh"] = function()
+	if CheckStack(1) or CheckTypes("number") then return end
+	push(math.tanh(pop()))
+end
