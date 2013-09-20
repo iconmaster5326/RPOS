@@ -10,6 +10,11 @@ To start using RPOS, I suggest using the 'help' command.
 Changelog
 =========
 
+Version 2.3.2 - 9/20/13
+* Added more descriptive help file
+* Re-introduced two helper libraires, the math and string library. They simply wrap the Lua libraries of the same name.
+* Fixed some more typos
+
 Version 2.3.1 - 9/14/13
 * Fixed bug in writing files in the Windows platform.
 * Added platform files for ComputerCraft and Unix-based platforms.

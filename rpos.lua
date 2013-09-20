@@ -1,9 +1,9 @@
 -------------------------------------------------------
 --
---	RPOS v2.3.1
---	Made By Joshua Robbins
+--	RPOS v2.3.2
+--	Made By Iconmaster
 --	The Reverse Polish Operating System
---	Made on 2/17/11, Last modified on 9/14/13
+--	Made on 2/17/11, Last modified on 9/20/13
 --
 -------------------------------------------------------
 
@@ -30,8 +30,8 @@ sys["errs"] = 1
 sys["disp"] = 0
 sys["srcchr"] = "_"
 sys["repchr"] = " "
-sys["version"] = "2.3.1"
-sys["bdate"] = "9/14/13"
+sys["version"] = "2.3.2"
+sys["bdate"] = "9/20/13"
 sys["joinchr"] = ""
 sys["inc"] = 1
 sys["pcf1"] = ""
@@ -538,7 +538,7 @@ end
 
 funcs["info"] = function()
 	print("RPOS v"..sys["version"])
-	print("Made by Joshua Robbins")
+	print("Made by Iconmaster")
 	print("Current Build: "..sys["bdate"])
 	print("Running on "..sys["platform"].." platform")
 	print("")
@@ -879,7 +879,7 @@ function readline()
 	return io.read("*l")
 end
 
--- Reads one charatcer form the console.
+-- Reads one charatcer from the console.
 function readchar()
 	return io.read(1)
 end
